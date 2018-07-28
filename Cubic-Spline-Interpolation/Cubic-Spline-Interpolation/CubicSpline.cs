@@ -6,7 +6,7 @@ namespace CubicSplineInterpolation
     {
         /*
           S(x) = a + b(x - xi) + c(x - xi)^2 + d(x - xi)^3 
-        */
+        */ 
         private List<double> a = new List<double>();
         private List<double> b = new List<double>();
         private List<double> c = new List<double>();
@@ -73,7 +73,7 @@ namespace CubicSplineInterpolation
                 else
                 {
                     double tmp = 4.0 - W[i - 1];
-                    C[i - 1] = (C[i] - C[i - 1]) / tmp;
+                    C[i] = (C[i] - C[i - 1]) / tmp;
                     W.Add(1.0 / tmp);
                 }
             }
@@ -83,9 +83,9 @@ namespace CubicSplineInterpolation
                 C[i] = C[i] - C[i + 1] * W[i];
             }
 
-            for (int i = 0; i <= y.Count - 1; ++i)
+            for(int i = 0; i <= y.Count - 1; ++i)
             {
-                if (i == y.Count - 1)
+                if(i == y.Count - 1)
                 {
                     D.Add(0.0);
                     B.Add(0.0);
@@ -97,6 +97,6 @@ namespace CubicSplineInterpolation
                 }
             }
         }
-
+    
     }
 }
