@@ -17,21 +17,27 @@ namespace CubicSplineInterpolation
         {
             InitParameter(y);
         }
-    
-        double Calc(double t)
+
+        public List<double> A { get => a; set => a = value; }
+        public List<double> B { get => b; set => b = value; }
+        public List<double> C { get => c; set => c = value; }
+        public List<double> D { get => d; set => d = value; }
+        public List<double> W { get => w; set => w = value; }
+
+        public double Calc(double t)
         {
             int num = (int)Math.Floor(t);
             if (num < 0)
             {
                 num = 0;
             }
-            else if (num >= a.Count)
+            else if (num >= A.Count)
             {
-                num = a.Count - 1;
+                num = A.Count - 1;
             }
             double dt = t - num;
             double result
-            = a[num] + b[num] * dt + c[num] * Math.Pow(dt, 2.0) + d[num] * Math.Pow(dt, 3.0);
+            = A[num] + B[num] * dt + C[num] * Math.Pow(dt, 2.0) + d[num] * Math.Pow(dt, 3.0);
             return result;
         }
 
@@ -39,19 +45,19 @@ namespace CubicSplineInterpolation
         {
             foreach(int i in y)
             {
-                a.Add(y[i]);
+                A.Add(y[i]);
 
                 if (i == 0)
                 {
-                    c.Add(0.0);
+                    C.Add(0.0);
                 }
                 else if (i == y.Count - 1)
                 {
-                    c.Add(0.0);
+                    C.Add(0.0);
                 }
                 else
                 {
-                    c.Add(3.0 * (a[i - 1] - 2.0 * a[i] + a[i + 1]));
+                    C.Add(3.0 * (A[i - 1] - 2.0 * A[i] + A[i + 1]));
                 }
             }
 
@@ -59,18 +65,18 @@ namespace CubicSplineInterpolation
             {
                 if (i == 0)
                 {
-                    w.Add(0.0);
+                    W.Add(0.0);
                 }
                 else
                 {
-                    double tmp = 4.0 - w[i - 1];
-                    c[i - 1] = (c[i] - c[i - 1]) / tmp;
-                    w.Add(1.0 / tmp);
+                    double tmp = 4.0 - W[i - 1];
+                    C[i - 1] = (C[i] - C[i - 1]) / tmp;
+                    W.Add(1.0 / tmp);
                 }
             }
             for (int i = y.Count - 1; i > 0;i--)
             {
-                c[i] = c[i] - c[i + 1] * w[i];
+                C[i] = C[i] - C[i + 1] * W[i];
             }
 
             foreach(int i in y)
@@ -78,12 +84,12 @@ namespace CubicSplineInterpolation
                 if(i == y.Count)
                 {
                     d.Add(0.0);
-                    b.Add(0.0);
+                    B.Add(0.0);
                 }
                 else
                 {
-                    d.Add((c[i + 1] - c[i]) / 3.0);
-                    b.Add(a[i + 1] - a[i] - c[i] - d[i]);
+                    d.Add((C[i + 1] - C[i]) / 3.0);
+                    B.Add(A[i + 1] - A[i] - C[i] - d[i]);
                 }
             }
         }
