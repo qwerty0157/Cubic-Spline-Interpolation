@@ -5,7 +5,7 @@ namespace CubicSplineInterpolation
     public class CubicSpline
     {
         /*
-          S(x) = a + b(x - xi) + c(x - xi)^2 + d(x - xi)^3
+           S(x) = a + b(x - xi) + c(x - xi)^2 + d(x - xi)^3
         */ 
         private List<double> a;
         private List<double> b;
