@@ -15,7 +15,7 @@ namespace CubicSplineInterpolation
             var rx = new List<double>() { };
             var ry = new List<double>() { };
 
-            for (double i = 0; i <= 3.2; i += 0.1)
+            for (double i = 0; i <= 3.3; i += 0.1)
             {
                 rx.Add(i);
                 ry.Add(CubicSpline.Calc(i));
