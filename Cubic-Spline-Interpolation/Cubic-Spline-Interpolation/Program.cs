@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gnuplot;
 
 namespace CubicSplineInterpolation
 {
     class MainClass
     {
         public static void Main(string[] args)
+        {
+            CubicSplineInterpolationTest();
+            //GnuplotGraphDrawTest();
+        }
+
+        public static void CubicSplineInterpolationTest()
         {
             Console.WriteLine("Cubic Spline sample");
             var sx = new List<double>() { 0.0, 1.0, 2.0, 3.0 };
@@ -20,6 +27,19 @@ namespace CubicSplineInterpolation
                 rx.Add(i);
                 ry.Add(CubicSpline.Calc(i));
             }
+        }
+
+        public static void GnuplotGraphDrawTest()
+        {
+            var gnuGraph = new GnuplotGraph();
+            var sampleDataInc = new GraphData(@"[datafilepath]",
+                "NaCl Singlecrystal #1 increase", GraphData.Axis.inverse);
+            var sampleDataDec = new GraphData(@"[datafilepath",
+                "NaCl Singlecrystal #1 decrease", GraphData.Axis.inverse);
+
+            gnuGraph.AddGraphData(sampleDataInc);
+            gnuGraph.AddGraphData(sampleDataDec);
+            gnuGraph.Draw();
         }
     }
 }
