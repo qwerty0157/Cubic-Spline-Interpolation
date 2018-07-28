@@ -16,7 +16,7 @@ namespace CubicSplineInterpolation
         {
             Console.WriteLine("Cubic Spline sample");
             var sx = new List<double>() { 0.0, 1.0, 2.0, 3.0 };
-            var sy = new List<double>() { 2.7, 6.0, 5.0, 6.5 };
+            var sy = new List<double>() { 2.7, 6.0, 3.0, 6.5 };
 
             var CubicSpline = new CubicSpline(sy);
             var rx = new List<double>() { };
@@ -30,9 +30,10 @@ namespace CubicSplineInterpolation
 
             string file_path = System.IO.Path.Combine(@"./../../../output/test.txt");
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(file_path))
-            foreach (int i in ry)
+            for(int i = 0; i <= ry.Count - 1; i++)
             {
-                    sw.WriteLine(String.Format("{0} {1}", rx[i], ry[i]));
+
+                sw.WriteLine(String.Format("{0} {1}", rx[i], ry[i]));
             }
             
         }
