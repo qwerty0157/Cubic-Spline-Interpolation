@@ -27,6 +27,14 @@ namespace CubicSplineInterpolation
                 rx.Add(i);
                 ry.Add(CubicSpline.Calc(i));
             }
+
+            string file_path = System.IO.Path.Combine(@"./../../../output/test.txt");
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(file_path))
+            foreach (int i in ry)
+            {
+                    sw.WriteLine(String.Format("{0} {1}", rx[i], ry[i]));
+            }
+            
         }
 
         public static void GnuplotGraphDrawTest()
