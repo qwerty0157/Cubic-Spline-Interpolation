@@ -5,13 +5,13 @@ namespace CubicSplineInterpolation
     public class CubicSpline
     {
         /*
-           S(x) = a + b(x - xi) + c(x - xi)^2 + d(x - xi)^3
-        */ 
-        private List<double> a;
-        private List<double> b;
-        private List<double> c;
-        private List<double> d;
-        private List<double> w;
+          S(x) = a + b(x - xi) + c(x - xi)^2 + d(x - xi)^3 
+        */
+        private List<double> a = new List<double>();
+        private List<double> b = new List<double>();
+        private List<double> c = new List<double>();
+        private List<double> d = new List<double>();
+        private List<double> w = new List<double>();
 
         public CubicSpline(List<double> y)
         {
@@ -37,16 +37,19 @@ namespace CubicSplineInterpolation
             }
             double dt = t - num;
             double result
-            = A[num] + B[num] * dt + C[num] * Math.Pow(dt, 2.0) + d[num] * Math.Pow(dt, 3.0);
+            = A[num] + B[num] * dt + C[num] * Math.Pow(dt, 2.0) + D[num] * Math.Pow(dt, 3.0);
             return result;
         }
 
         void InitParameter(List<double> y)
         {
-            foreach(int i in y)
+            for (int i = 0; i <= y.Count - 1; ++i)
             {
                 A.Add(y[i]);
+            }
 
+            for (int i = 0; i <= y.Count - 1; ++i)
+            {
                 if (i == 0)
                 {
                     C.Add(0.0);
@@ -61,7 +64,7 @@ namespace CubicSplineInterpolation
                 }
             }
 
-            foreach(int i in y)
+            for (int i = 0; i <= y.Count - 1; ++i)
             {
                 if (i == 0)
                 {
@@ -74,25 +77,26 @@ namespace CubicSplineInterpolation
                     W.Add(1.0 / tmp);
                 }
             }
-            for (int i = y.Count - 1; i > 0;i--)
+            for (int i = y.Count - 1; i > 0;)
             {
+                i--;
                 C[i] = C[i] - C[i + 1] * W[i];
             }
 
-            foreach(int i in y)
+            for (int i = 0; i <= y.Count - 1; ++i)
             {
-                if(i == y.Count)
+                if (i == y.Count - 1)
                 {
-                    d.Add(0.0);
+                    D.Add(0.0);
                     B.Add(0.0);
                 }
                 else
                 {
-                    d.Add((C[i + 1] - C[i]) / 3.0);
-                    B.Add(A[i + 1] - A[i] - C[i] - d[i]);
+                    D.Add((C[i + 1] - C[i]) / 3.0);
+                    B.Add(A[i + 1] - A[i] - C[i] - D[i]);
                 }
             }
         }
-    
+
     }
 }
