@@ -43,14 +43,12 @@ namespace CubicSplineInterpolation
 
         void InitParameter(List<double> y)
         {
-            foreach(int i in y)
-            //for (int i = 0; i <= y.Count - 1; ++i)
+            for (int i = 0; i <= y.Count - 1; ++i)
             {
                 A.Add(y[i]);
             }
 
-            foreach (int i in y)
-            //for (int i = 0; i <= y.Count - 1; ++i)
+            for (int i = 0; i <= y.Count - 1; ++i)
             {
                 if (i == 0)
                 {
@@ -66,8 +64,7 @@ namespace CubicSplineInterpolation
                 }
             }
 
-            foreach (int i in y)
-            //for (int i = 0; i <= y.Count - 1; ++i)
+            for (int i = 0; i <= y.Count - 1; ++i)
             {
                 if (i == 0)
                 {
@@ -80,15 +77,13 @@ namespace CubicSplineInterpolation
                     W.Add(1.0 / tmp);
                 }
             }
-
             for (int i = y.Count - 1; i > 0;)
             {
                 i--;
                 C[i] = C[i] - C[i + 1] * W[i];
             }
 
-            foreach (int i in y)
-            //for(int i = 0; i <= y.Count - 1; ++i)
+            for(int i = 0; i <= y.Count - 1; ++i)
             {
                 if(i == y.Count - 1)
                 {
